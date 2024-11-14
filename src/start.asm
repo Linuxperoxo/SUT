@@ -1,10 +1,10 @@
 %include "../include/syscall.asm"
 
-section .data
-  _msg db "Hello, World!", 0x0A
+extern _test
+extern _test_size
 
 section .text
 _start:
-  sys_write STDOUT_FILENO, _msg, 14
+  sys_write STDOUT_FILENO, _test, _test_size
   sys_exit 0
 
