@@ -1,13 +1,10 @@
-%include "../include/write.asm"
+%include "../include/syscall.asm"
 
 section .data
   _msg db "Hello, World!", 0x0A
 
 section .text
 _start:
-  printf _msg, 19
+  sys_write STDOUT_FILENO, _msg, 14
+  sys_exit 0
 
-  mov rax, 60
-  mov rdi, 0
-  syscall
-  

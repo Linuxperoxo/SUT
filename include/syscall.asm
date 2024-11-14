@@ -1,35 +1,75 @@
-/*
- *
- * Syscall codes 
- *
- */
+;
+; Syscall codes 
+;
 
+%define SYS_READ 0
 %define SYS_WRITE 1
+%define SYS_OPEN 2
+%define SYS_EXIT 60
 
-/*
- *
- * File desc para o /dev/pts/ atual 
- *
- */
+;
+; File desc para o /dev/pts/ atual 
+;
 
 %define STDOUT_FILENO 1
 %define STDIN_FILENO 0
 
-/*
- *
- * SYS_WRITE:
- *
- * rdi - File desc para escrita
- * rsi - Ponteiro para o dado a ser escrito
- * rdx - Bytes a ser escritos
- *
- */
+;
+; Permissões flags
+;
 
-%macro printf 2
+%define O_RDWR 0x02
+%define O_RDONLY 0x00
+%define O_CREATE 0x40
+%define O_TRUC 0x200
+
+; SYS_READ: 
+; rdi - File desc para leitura
+; rsi - Endereço do buffer de leitura
+; rdx - Bytes a ser lidos
+
+%macro sys_read 3
+  mov rax, SYS_READ
+  mov rdi, %1
+  mov rsi, %2
+  mov rdx, %3
+  syscall
+%endmacro
+
+; SYS_WRITE:
+;
+; rdi - File desc para escrita
+; rsi - Ponteiro para o dado a ser escrito
+; rdx - Bytes a ser escritos
+
+%macro sys_write 3
   mov rax, SYS_WRITE
-  mov rdi, STDOUT_FILENO
-  mov rsi, %1
-  mov rdx, %2
+  mov rdi, %1
+  mov rsi, %2
+  mov rdx, %3
   syscall 
 %endmacro
 
+; SYS_OPEN
+;
+; rdi - Nome do arquivo (caminho completo)
+; rsi - Flags de abertura 
+; rdx - Permissão do arquivo (apenas relevante para criação do arquivo)
+
+%macro sys_open 3
+  mov rax, SYS_OPEN
+  mov rdi, %1
+  mov rsi, %2
+  mov rdx, %3
+  syscall
+%endmacro
+
+; SYS_EXIT:
+;  
+; rdi - Status de saída
+
+%macro sys_exit 1
+  mov rax, SYS_EXIT
+  mov rdi, %1
+  syscall
+%endmacro 
