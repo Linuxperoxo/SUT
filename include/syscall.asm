@@ -18,10 +18,12 @@
 ; Permissões flags
 ;
 
+%define O_WRONLY 0x01
 %define O_RDWR 0x02
 %define O_RDONLY 0x00
-%define O_CREATE 0x40
+%define O_CREAT 0x40
 %define O_TRUC 0x200
+
 
 ; SYS_READ: 
 ; rdi - File desc para leitura
@@ -55,6 +57,8 @@
 ; rdi - Nome do arquivo (caminho completo)
 ; rsi - Flags de abertura 
 ; rdx - Permissão do arquivo (apenas relevante para criação do arquivo)
+;
+; return : Retorno pelo rax, -1 em caso de falha, em caso de sucesso retorna um positivo
 
 %macro sys_open 3
   mov rax, SYS_OPEN
