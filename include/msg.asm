@@ -1,6 +1,10 @@
 section .rodata
-  global _test
-  global _test_size
+  global _connect_msg
+  global _connect_size
+  global _brk_ln
 
-  _test db "Hello, World!", 0x0A
-  _test_size equ 14
+  _connect_msg db "Type session num: ", 0x00
+  _connect_size equ 18
+  _brk_ln db 0x0A
+
+
