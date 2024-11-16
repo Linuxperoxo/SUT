@@ -1,10 +1,28 @@
+;
+;
+;
+;    /--------------------------------------------O
+;    |                                            |
+;    |  COPYRIGHT : (c) 2024 per Linuxperoxo.     |
+;    |  AUTHOR    : Linuxperoxo                   |
+;    |  FILE      : msg.asm                       |
+;    |  SRC MOD   : 15/11/2024                    |
+;    |                                            |
+;    O--------------------------------------------/
+;    
+;
+;
+
 section .rodata
-  global _connect_msg
-  global _connect_size
-  global _brk_ln
+  global __connect_msg
+  global __connect_str_size
+  global __brk_ln
+  global __open_error
+  global __open_str_size
 
-  _connect_msg db "Type session num: ", 0x00
-  _connect_size equ 18
-  _brk_ln db 0x0A
-
+  __connect_msg db "Type session num: "
+  __connect_str_size equ 18
+  __brk_ln db 0x0A
+  __open_error db "Error to open file " 
+  __open_str_size equ 19
 

@@ -1,4 +1,19 @@
 ;
+;
+;
+;    /--------------------------------------------O
+;    |                                            |
+;    |  COPYRIGHT : (c) 2024 per Linuxperoxo.     |
+;    |  AUTHOR    : Linuxperoxo                   |
+;    |  FILE      : syscall.asm                   |
+;    |  SRC MOD   : 15/11/2024                    |
+;    |                                            |
+;    O--------------------------------------------/
+;    
+;
+;
+
+;
 ; Syscall codes 
 ;
 
@@ -19,9 +34,9 @@
 ; Permissões flags
 ;
 
+%define O_RDONLY 0x00
 %define O_WRONLY 0x01
 %define O_RDWR   0x02
-%define O_RDONLY 0x00
 %define O_CREAT  0x40
 %define O_TRUC   0x200
 
@@ -61,11 +76,11 @@
 ;
 ; return : Retorno pelo rax, -1 em caso de falha, em caso de sucesso retorna um positivo
 
-%macro sys_open 3
+%macro sys_open 2
   mov rax, SYS_OPEN
   mov rdi, %1
   mov rsi, %2
-  mov rdx, %3
+  mov rdx, 0
   syscall
 %endmacro
 
